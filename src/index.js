@@ -2,24 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter,
-  Link,
   Route,
   Switch
 } from 'react-router-dom';
 
+import Header from './components/Header/Header';
 import Homepage from './components/Homepage/Homepage';
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
+import SignIn from './components/Authentication/SignIn/SignIn';
+import SignUp from './components/Authentication/SignUp/SignUp';
 
 import registerServiceWorker from './registerServiceWorker';
 
 const router = (
   <BrowserRouter>
     <div>
-      <div id="header">
-        <Link to="/sign_in">Sign In</Link>
-        <Link to="/sign_up">Sign Up</Link>
-      </div>
+      <Header />
 
       <div id="main">
         <Switch>
