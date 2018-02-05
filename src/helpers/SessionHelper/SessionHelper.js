@@ -16,3 +16,12 @@ export const fetchCredentials = () => {
   const cookies = new Cookies();
   return cookies.get('credentials');
 };
+
+export const loggedIn = () => (
+  fetchCredentials()
+);
+
+export const removeCredentials = () => {
+  const cookies = new Cookies();
+  return cookies.remove('credentials');
+};
