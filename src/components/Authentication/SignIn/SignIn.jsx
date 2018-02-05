@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { signIn } from '../../../helpers/Api/Authentication';
-import { getBookmarks } from '../../../helpers/Api/Bookmarks';
+import { submitDisabled } from './SignInHelper';
 
 class SignIn extends Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class SignIn extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    signIn(this.state.email, this.state.password);
+    signIn(this.state.email, this.state.password)
+      .then(() => this.props.history.push('/'));
   };
 
   handleChange = (attr, e) => {
@@ -27,9 +28,19 @@ class SignIn extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input name="email" type="text" onChange={(e) => this.handleChange('email', e)} />
-          <input name="password" type="password" onChange={(e) => this.handleChange('password', e)} />
-          <input type="submit" value="Sign in" />
+          <input
+            name="email"
+            type="text"
+            label="Email"
+            onChange={(e) => this.handleChange('email', e)}
+          />
+          <input
+            name="password"
+            type="password"
+            label="Password"
+            onChange={(e) => this.handleChange('password', e)}
+          />
+          <input type="submit" value="Sign in" disabled={submitDisabled(this.state)} />
         </form>
 
         <Link to="/">Cancel</Link>

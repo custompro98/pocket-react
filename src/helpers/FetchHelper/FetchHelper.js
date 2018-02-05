@@ -4,7 +4,6 @@ import { fetchCredentials, storeCredentials } from '../../helpers/SessionHelper/
 
 const fetchHelper = ({ url, method, body = undefined }) => {
   const apiBaseUrl = 'https://secret-lake-48253.herokuapp.com';
-  // const apiBaseUrl = 'http://localhost:3001';
 
   const headers = { 'content-type': 'application/json', ...fetchCredentials() };
   const params = { method, headers, mode: 'cors' };
