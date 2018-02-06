@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { signUp } from '../../../helpers/Api/Authentication';
 import { submitDisabled } from './SignUpHelper';
@@ -25,11 +25,16 @@ class SignUp extends Component {
       this.state.lastName,
       this.state.email,
       this.state.password
-    ).then(() => this.props.history.push('/'));
+    ).then(this.props.onSignUp)
+     .then(this.navigateHome);
   };
 
   handleChange = (attr, e) => {
     this.setState({ [attr]: e.target.value });
+  };
+
+  navigateHome = () => {
+    this.props.history.push('/')
   };
 
   render() {
@@ -75,4 +80,4 @@ class SignUp extends Component {
   }
 };
 
-export default SignUp;
+export default withRouter(SignUp);

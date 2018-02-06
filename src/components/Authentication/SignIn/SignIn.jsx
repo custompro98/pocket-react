@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { signIn } from '../../../helpers/Api/Authentication';
 import { submitDisabled } from './SignInHelper';
@@ -17,11 +17,16 @@ class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     signIn(this.state.email, this.state.password)
-      .then(() => this.props.history.push('/'));
+      .then(this.props.onSignIn)
+      .then(this.navigateHome)
   };
 
   handleChange = (attr, e) => {
     this.setState({ [attr]: e.target.value });
+  };
+
+  navigateHome = () => {
+    this.props.history.push('/')
   };
 
   render() {
@@ -49,4 +54,4 @@ class SignIn extends Component {
   }
 };
 
-export default SignIn;
+export default withRouter(SignIn);
