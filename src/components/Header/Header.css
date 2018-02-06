@@ -1,0 +1,27 @@
+#header {
+  background-color: gray;
+  height: 75px;
+  color: white;
+  width: 100%;
+}
+
+.Header__Logo {
+  display: inline;
+  margin: 0 0 0 20px;
+  font-size: 1.5em;
+  line-height: 75px;
+  width: 10%;
+}
+
+.Header__CredentialControls {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  text-align: right;
+  font-size: 1.5em;
+  line-height: 75px;
+  width: 90%;
+}
+
+.Header__AuthLink {
+  padding-right: 20px;
+}

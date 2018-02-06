@@ -1,0 +1,15 @@
+.textInput__div {
+  display: table;
+  width: 100%;
+  padding: 0 0 5px 0;
+}
+
+.textInput__label {
+  display: table-cell;
+  width: 20%;
+}
+
+.textInput__input {
+  display: table-cell;
+  width: 80%;
+}

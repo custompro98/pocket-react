@@ -1,7 +1,17 @@
 import React from 'react';
+import { Flag } from 'flag';
+
+import BookmarkList from '../BookmarkList/BookmarkList'
 
 const Homepage = () => (
-  <span>Welcome to the homepage</span>
+  <div>
+    <Flag name="loggedIn"
+      component={BookmarkList}
+      fallbackRender={() =>
+        <span>Welcome to the main homepage</span>
+      }
+    />
+  </div>
 );
 
 export default Homepage;

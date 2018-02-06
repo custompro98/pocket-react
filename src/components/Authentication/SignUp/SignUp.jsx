@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
+import TextInput from '../../../components/FormElements/TextInput/TextInput';
 
 import { signUp } from '../../../helpers/Api/Authentication';
 import { submitDisabled } from './SignUpHelper';
+
+import './SignUp.css';
 
 class SignUp extends Component {
   constructor(props) {
@@ -34,47 +38,47 @@ class SignUp extends Component {
   };
 
   navigateHome = () => {
-    this.props.history.push('/')
+    this.props.history.push('/');
   };
 
   render() {
     return (
-      <div>
+      <div className="SignUp__Form">
         <form onSubmit={this.handleSubmit}>
-          <input
+          <TextInput
             name="firstName"
             type="text"
             label="First Name"
             onChange={(e) => this.handleChange('firstName', e)}
           />
-          <input
+          <TextInput
             name="lastName"
             type="text"
             label="Last Name"
             onChange={(e) => this.handleChange('lastName', e)}
           />
-          <input
+          <TextInput
             name="email"
             type="text"
             label="Email"
             onChange={(e) => this.handleChange('email', e)}
           />
-          <input
+          <TextInput
             name="password"
             type="password"
             label="Password"
             onChange={(e) => this.handleChange('password', e)}
           />
-          <input
+          <TextInput
             name="confirmPassword"
             type="password"
             label="Confirm Password"
             onChange={(e) => this.handleChange('confirmPassword', e)}
           />
-          <input type="submit" value="Sign up" disabled={submitDisabled(this.state)} />
+          <div className="SignUp__Form">
+            <input type="submit" value="Sign up" disabled={submitDisabled(this.state)} />
+          </div>
         </form>
-
-        <Link to="/">Cancel</Link>
       </div>
     );
   }

@@ -1,0 +1,14 @@
+.BookmarkList__List {
+  width: 40%;
+}
+
+.BookmarkList__ListItem {
+  width: 100%;
+  margin: 0 0 2px 0;
+}
+
+.BookmarkList__BookmarkTitle {
+  width: 100%;
+  color: blue;
+  text-decoration: underline;
+}

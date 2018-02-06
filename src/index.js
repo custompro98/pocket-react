@@ -16,6 +16,8 @@ import { loggedIn } from './helpers/SessionHelper/SessionHelper';
 
 import registerServiceWorker from './registerServiceWorker';
 
+import './index.css';
+
 class Router extends Component {
   constructor(props) {
     super(props);

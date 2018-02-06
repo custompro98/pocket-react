@@ -10,10 +10,15 @@ const fetchHelper = ({ url, method, body = undefined }) => {
 
   if (body !== undefined) params.body = JSON.stringify(body);
 
-  return fetch(apiBaseUrl + url, params).then((res) => {
-    storeCredentials(res.headers);
-    return res;
-  });
+  return fetch(apiBaseUrl + url, params)
+    .then((res) => {
+      storeCredentials(res.headers);
+      return res.json();
+    })
+    .then((json) => {
+      if (json.errors) throw new Error('Need to sign in')
+      return json;
+    });
 };
 
 export default fetchHelper;

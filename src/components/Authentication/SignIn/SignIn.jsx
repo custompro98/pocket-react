@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
+import TextInput from '../../../components/FormElements/TextInput/TextInput';
 
 import { signIn } from '../../../helpers/Api/Authentication';
 import { submitDisabled } from './SignInHelper';
+
+import './SignIn.css';
 
 class SignIn extends Component {
   constructor(props) {
@@ -18,7 +22,7 @@ class SignIn extends Component {
     e.preventDefault();
     signIn(this.state.email, this.state.password)
       .then(this.props.onSignIn)
-      .then(this.navigateHome)
+      .then(this.navigateHome);
   };
 
   handleChange = (attr, e) => {
@@ -26,29 +30,29 @@ class SignIn extends Component {
   };
 
   navigateHome = () => {
-    this.props.history.push('/')
+    this.props.history.push('/');
   };
 
   render() {
     return (
-      <div>
+      <div className="SignIn__Form">
         <form onSubmit={this.handleSubmit}>
-          <input
+          <TextInput
             name="email"
             type="text"
             label="Email"
             onChange={(e) => this.handleChange('email', e)}
           />
-          <input
+          <TextInput
             name="password"
             type="password"
             label="Password"
             onChange={(e) => this.handleChange('password', e)}
           />
-          <input type="submit" value="Sign in" disabled={submitDisabled(this.state)} />
+          <div className="SignIn__FormSubmit">
+            <input type="submit" value="Sign in" disabled={submitDisabled(this.state)} />
+          </div>
         </form>
-
-        <Link to="/">Cancel</Link>
       </div>
     );
   }
