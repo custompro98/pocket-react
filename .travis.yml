@@ -3,7 +3,14 @@ node_js:
   - stable
 cache:
   directories:
-    - node_modules
+  - node_modules
 script:
   - npm test
   - npm run build
+deploy:
+  provider: heroku
+  api_key:
+    secure: uvoLEAKjc3jrsdHbzxUYls3iUqU+apyfPL/6WTnFNYhV/s3Fug9+HwhR0Q9r/Ta0o/qR62fJGXEJSmSDyIf8tmiAPwks0tQTQxwjlDGE34Bsuwxz1eszgx1k4X95PZGywlgbFJDDU3OmRk0qd5N3Qxs4Fd8AfgB1s8bQrcWn3XJ2VzhoO7UKlWAz+rzenlsYn6EeTItsmBn18rbYPvCTY7NYNfJU54RcboJ05/xDh7JB2AYeqdaifDWQ9zVbhzLHDU4ewOMtFcXHYpdiVB7P17WAD4Dvs6tIHDF11wh7mVF8MlKxtKvxs+HflFliCXqS+TgfGxFuIhuAuCg1/tgDzNM1D3MjO83dC/Oc5F/CZyEYMmSPQ2lywosrf4spGjd7M8spWXJmQk2pKwHQJ4UlEUXOVopuBb+xT9MZcprfgInjDLRjGpwTSXw8mxcYKEFqOqrabd1dhwTBbfTRdbDtoOSYHMrs/P3sfx33srnJHjwQ5T+k+3BMAOR2NPd5Jh1zeMmy8ouwIiE6qNIJvxVyogxK0Mxh3nz0JBA3624HQWB6gBaNd+gkXi8t2F8VBMFf4TjOV5rnh5Gs7BjzbUEp4rfDLAyIKMdkXKqI5a3Yaw1PdkY+xkYoCtq49Mj067fW6uujSIDAx6mfQ5b8/Tln84LPQnjFa5+usQoHt9nxdXo=
+  app: pocket-react
+  on:
+    repo: custompro98/pocket-react
