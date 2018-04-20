@@ -41,7 +41,6 @@ class Router extends Component {
         <BrowserRouter>
           <div>
             <Header onSignOut={this.handleSignOut} />
-
             <div id="main">
               <Switch>
                 <Route exact path="/" component={Homepage} />
@@ -52,7 +51,7 @@ class Router extends Component {
                 <Route exact
                   path="/sign_up"
                   render={() => <SignUp onSignUp={this.handleSignIn} />}
-                 />
+                />
               </Switch>
             </div>
           </div>

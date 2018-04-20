@@ -1,0 +1,19 @@
+schema {
+  query: Root
+}
+
+type Root {
+  bookmarks: [Bookmark]
+}
+
+type Bookmark {
+  id: ID
+  title: String
+  url: String
+  owner: User
+}
+
+type User {
+  id: ID,
+  first_name: String
+}
