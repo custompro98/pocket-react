@@ -1,0 +1,55 @@
+.BookmarkCard__card {
+  width: 300px;
+  height: 100px;
+  border: 1px solid gray;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 4px 4px lightgray;
+}
+
+.BookmarkCard__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.BookmarkCard__title {
+  color: gray;
+}
+
+.BookmarkCard__owner {
+  color: darkgray;
+}
+
+.BookmarkCard__body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.BookmarkCard__faviconWrapper {
+  margin: 0 auto;
+}
+
+.BookmarkCard__favicon {
+  display: inline;
+  height: 32px;
+  width: 32px;
+}
+
+.BookmarkCard__noFavicon {
+  display: inline;
+  color: gray;
+}
+
+.BookmarkCard__tagsList {
+  color: gray;
+  font-size: small;
+}
+
+.BookmarkCard__tagsLabel {
+  padding-right: 2px;
+}

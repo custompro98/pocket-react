@@ -4,6 +4,8 @@ import { graphql, QueryRenderer } from 'react-relay';
 
 import environment from '../../Environment';
 
+import BookmarkCard from './BookmarkCard/BookmarkCard';
+
 import './BookmarkList.css';
 
 class BookmarkList extends Component {
@@ -27,10 +29,16 @@ class BookmarkList extends Component {
         query={graphql`
           query BookmarkListQuery {
             bookmarks {
+              id,
               title,
               url,
               owner {
+                id,
                 first_name
+              }
+              tags {
+                id,
+                name
               }
             }
           }
@@ -39,15 +47,11 @@ class BookmarkList extends Component {
           if (error) return <div>{console.log(error)}Error!</div>
           if (!props) return <div>Loading...</div>
           return (
-            <div>
-              <ul className="BookmarkList__List">
+            <div className="BookmarkList__wrapper">
+              <ul className="BookmarkList__list">
                 {props.bookmarks.map((bookmark) => (
-                  <li className="BookmarkList__ListItem" key={bookmark.title}>
-                    <span className="BookmarkList__BookmarkTitle">
-                      <a href={bookmark.url}>
-                        {bookmark.title}
-                      </a>
-                    </span>
+                  <li key={bookmark.id} className="BookmarkList__item">
+                    <BookmarkCard bookmark={bookmark} />
                   </li>
                 ))}
               </ul>

@@ -14,7 +14,9 @@ export const storeCredentials = (headers) => {
 
 export const fetchCredentials = () => {
   const cookies = new Cookies();
-  return cookies.get('credentials');
+  const credentials =  cookies.get('credentials');
+
+  return credentials && credentials.uid ? credentials : {};
 };
 
 export const loggedIn = () => (

@@ -1,14 +1,14 @@
-.BookmarkList__List {
-  width: 40%;
+.BookmarkList__wrapper {
+  width: 100%;
 }
 
-.BookmarkList__ListItem {
-  width: 100%;
-  margin: 0 0 2px 0;
+.BookmarkList__list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  margin: 0 auto;
 }
 
-.BookmarkList__BookmarkTitle {
-  width: 100%;
-  color: blue;
-  text-decoration: underline;
+.BookmarkList__item {
+  list-style-type: none;
 }

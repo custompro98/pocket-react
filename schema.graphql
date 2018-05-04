@@ -11,9 +11,15 @@ type Bookmark {
   title: String
   url: String
   owner: User
+  tags: [Tag]
 }
 
 type User {
   id: ID,
   first_name: String
+}
+
+type Tag {
+  id: ID,
+  name: String
 }

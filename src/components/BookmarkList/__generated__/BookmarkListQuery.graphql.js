@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d071b77cd63a10206eec6384be2917af
+ * @relayHash e0124a2cdd01dabaf287b4f4aef1b910
  */
 
 /* eslint-disable */
@@ -12,11 +12,17 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type BookmarkListQueryVariables = {| |};
 export type BookmarkListQueryResponse = {|
   +bookmarks: ?$ReadOnlyArray<?{|
+    +id: ?string,
     +title: ?string,
     +url: ?string,
     +owner: ?{|
+      +id: ?string,
       +first_name: ?string,
     |},
+    +tags: ?$ReadOnlyArray<?{|
+      +id: ?string,
+      +name: ?string,
+    |}>,
   |}>,
 |};
 */
@@ -25,13 +31,17 @@ export type BookmarkListQueryResponse = {|
 /*
 query BookmarkListQuery {
   bookmarks {
+    id
     title
     url
     owner {
-      first_name
       id
+      first_name
     }
-    id
+    tags {
+      id
+      name
+    }
   }
 }
 */
@@ -40,37 +50,82 @@ const node/*: ConcreteRequest*/ = (function(){
 var v0 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "title",
-  "args": null,
-  "storageKey": null
-},
-v1 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "url",
-  "args": null,
-  "storageKey": null
-},
-v2 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "first_name",
-  "args": null,
-  "storageKey": null
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
-};
+},
+v1 = [
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "bookmarks",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Bookmark",
+    "plural": true,
+    "selections": [
+      v0,
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "title",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "url",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "owner",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "User",
+        "plural": false,
+        "selections": [
+          v0,
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "first_name",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "tags",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Tag",
+        "plural": true,
+        "selections": [
+          v0,
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "name",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      }
+    ]
+  }
+];
 return {
   "kind": "Request",
   "operationKind": "query",
   "name": "BookmarkListQuery",
   "id": null,
-  "text": "query BookmarkListQuery {\n  bookmarks {\n    title\n    url\n    owner {\n      first_name\n      id\n    }\n    id\n  }\n}\n",
+  "text": "query BookmarkListQuery {\n  bookmarks {\n    id\n    title\n    url\n    owner {\n      id\n      first_name\n    }\n    tags {\n      id\n      name\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -78,69 +133,15 @@ return {
     "type": "Root",
     "metadata": null,
     "argumentDefinitions": [],
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "bookmarks",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Bookmark",
-        "plural": true,
-        "selections": [
-          v0,
-          v1,
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "owner",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "User",
-            "plural": false,
-            "selections": [
-              v2
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": v1
   },
   "operation": {
     "kind": "Operation",
     "name": "BookmarkListQuery",
     "argumentDefinitions": [],
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "bookmarks",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Bookmark",
-        "plural": true,
-        "selections": [
-          v0,
-          v1,
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "owner",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "User",
-            "plural": false,
-            "selections": [
-              v2,
-              v3
-            ]
-          },
-          v3
-        ]
-      }
-    ]
+    "selections": v1
   }
 };
 })();
-(node/*: any*/).hash = '26f475816508f4c7223634ab7e11df2d';
+(node/*: any*/).hash = '0291c1f14c5641378c2f11f66da4c2ac';
 module.exports = node;
