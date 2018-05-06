@@ -20,7 +20,7 @@ export const fetchCredentials = () => {
 };
 
 export const loggedIn = () => (
-  fetchCredentials()
+  fetchCredentials() !== {}
 );
 
 export const removeCredentials = () => {

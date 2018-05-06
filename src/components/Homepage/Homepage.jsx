@@ -1,17 +1,15 @@
 import React from 'react';
-import { Flag } from 'flag';
+import { Redirect }  from 'react-router-dom';
 
 import BookmarkList from '../BookmarkList/BookmarkList'
 
-const Homepage = () => (
-  <div>
-    <Flag name="loggedIn"
-      component={BookmarkList}
-      fallbackRender={() =>
-        <span>Welcome to the main homepage</span>
-      }
-    />
-  </div>
+const Homepage = ({ loggedIn }) => (
+  <React.Fragment>
+    { loggedIn ?
+      <BookmarkList /> :
+      <Redirect to="/sign_in" />
+    }
+  </React.Fragment>
 );
 
 export default Homepage;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { graphql, QueryRenderer } from 'react-relay';
 
 import environment from '../../Environment';
@@ -16,10 +15,6 @@ class BookmarkList extends Component {
       bookmarks: []
     };
   }
-
-  navigateToSignIn = () => {
-    this.props.history.push('/sign_in');
-  };
 
   render() {
     return (
@@ -44,8 +39,8 @@ class BookmarkList extends Component {
           }
         `}
         render={({ error, props }) => {
-          if (error) return <div>{console.log(error)}Error!</div>
-          if (!props) return <div>Loading...</div>
+          if (error) return <div>{console.log(error)}Error!</div>;
+          if (!props) return <div>Loading...</div>;
           return (
             <div className="BookmarkList__wrapper">
               <ul className="BookmarkList__list">
@@ -63,4 +58,4 @@ class BookmarkList extends Component {
   }
 };
 
-export default withRouter(BookmarkList);
+export default BookmarkList;

@@ -24,4 +24,5 @@
 
 .Header__AuthLink {
   padding-right: 20px;
+  cursor: pointer;
 }
