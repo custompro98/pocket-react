@@ -1,8 +1,23 @@
-.SignIn__Form {
-  width: 50%;
+.SignIn__Wrapper {
+  width: 500px;
+  height: 150px;
   margin: 0 auto;
 }
 
-.SignIn__FormSubmit {
-  text-align: center;
+.SignIn__Form {
+  height: 100%;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.SignIn__SubmitBtnWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.SignIn__SubmitBtn {
+  width: 20%;
 }

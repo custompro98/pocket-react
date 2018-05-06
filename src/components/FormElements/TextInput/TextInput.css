@@ -1,15 +1,15 @@
-.textInput__div {
-  display: table;
-  width: 100%;
-  padding: 0 0 5px 0;
+.TextInput__Wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-.textInput__label {
-  display: table-cell;
-  width: 20%;
+.TextInput__Label {
+  font-size: 12px;
+  color: gray;
 }
 
-.textInput__input {
-  display: table-cell;
-  width: 80%;
+.TextInput__Input {
+  height: 30px;
+  font-size: 18px;
+  color: dimgray;
 }

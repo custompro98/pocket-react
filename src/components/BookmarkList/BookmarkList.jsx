@@ -42,10 +42,10 @@ class BookmarkList extends Component {
           if (error) return <div>{console.log(error)}Error!</div>;
           if (!props) return <div>Loading...</div>;
           return (
-            <div className="BookmarkList__wrapper">
-              <ul className="BookmarkList__list">
+            <div className="BookmarkList__Wrapper">
+              <ul className="BookmarkList__List">
                 {props.bookmarks.map((bookmark) => (
-                  <li key={bookmark.id} className="BookmarkList__item">
+                  <li key={bookmark.id} className="BookmarkList__Item">
                     <BookmarkCard bookmark={bookmark} />
                   </li>
                 ))}

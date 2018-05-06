@@ -43,8 +43,8 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="SignUp__Form">
-        <form onSubmit={this.handleSubmit}>
+      <div className="SignUp__Wrapper FloatingCard">
+        <form className="SignUp__Form" onSubmit={this.handleSubmit}>
           <TextInput
             name="firstName"
             type="text"
@@ -75,8 +75,13 @@ class SignUp extends Component {
             label="Confirm Password"
             onChange={(e) => this.handleChange('confirmPassword', e)}
           />
-          <div className="SignUp__Form">
-            <input type="submit" value="Sign up" disabled={submitDisabled(this.state)} />
+          <div className="SignUp__SubmitBtnWrapper">
+            <input
+              type="submit"
+              value="Sign up"
+              className="SignUp__SubmitBtn SubmitBtn"
+              disabled={submitDisabled(this.state)}
+            />
           </div>
         </form>
       </div>

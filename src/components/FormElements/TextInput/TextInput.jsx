@@ -2,9 +2,9 @@ import React from 'react';
 import './TextInput.css';
 
 const TextInput = (props) => (
-  <div className="textInput__div">
-    <label htmlFor={props.name} className="textInput__label">{props.label}:</label>
-    <input className="textInput__input" {...props} />
+  <div className="TextInput__Wrapper">
+    <label htmlFor={props.name} className="TextInput__Label">{props.label}</label>
+    <input className="TextInput__Input" {...props} />
   </div>
 );
 
