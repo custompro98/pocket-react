@@ -3,18 +3,21 @@ import { graphql, QueryRenderer } from 'react-relay';
 
 import environment from '../../Environment';
 
+import LoadingState from '../LoadingState/LoadingState';
 import BookmarkCard from './BookmarkCard/BookmarkCard';
 
 import './BookmarkList.css';
 
-const BookmarkList = () => {
+const BookmarkList = ({ selectedTag }) => {
   return (
     <QueryRenderer
       environment={environment}
-      variables={{}}
+      variables={{
+        selectedTag: selectedTag
+      }}
       query={graphql`
-        query BookmarkListQuery {
-          bookmarks {
+        query BookmarkListQuery($selectedTag: ID) {
+          bookmarks(tag: $selectedTag) {
             id,
             title,
             url,
@@ -31,15 +34,14 @@ const BookmarkList = () => {
       `}
       render={({ error, props }) => {
         if (error) return <div>{console.log(error)}Error!</div>;
-        if (!props) return <div>Loading...</div>;
         return (
           <div className="BookmarkList__Wrapper">
             <ul className="BookmarkList__List">
-              {props.bookmarks.map((bookmark) => (
+              {props && props.bookmarks.map(bookmark => (
                 <li key={bookmark.id} className="BookmarkList__Item">
                   <BookmarkCard bookmark={bookmark} />
                 </li>
-              ))}
+              )) || <LoadingState />}
             </ul>
           </div>
         );

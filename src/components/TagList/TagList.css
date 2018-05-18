@@ -1,0 +1,29 @@
+.TagList__Wrapper {
+  width: 200px;
+  min-width: 150px;
+}
+
+.TagList__Header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.TagList__Clear {
+  cursor: pointer;
+  font-style: italic;
+  color: gray;
+}
+
+.TagList__List {
+
+}
+
+.TagList__Item {
+  list-style: none;
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+
+.TagList__Item_Active {
+  background-color: lightgray;
+}

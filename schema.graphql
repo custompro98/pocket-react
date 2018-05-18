@@ -3,7 +3,8 @@ schema {
 }
 
 type Root {
-  bookmarks: [Bookmark]
+  bookmarks(tag:  ID): [Bookmark]
+  tags: [Tag]
 }
 
 type Bookmark {

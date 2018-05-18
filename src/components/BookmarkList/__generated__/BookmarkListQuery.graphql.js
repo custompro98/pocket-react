@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e0124a2cdd01dabaf287b4f4aef1b910
+ * @relayHash e4aeaf341608ed23be5d8d436d4c80fd
  */
 
 /* eslint-disable */
@@ -9,7 +9,9 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type BookmarkListQueryVariables = {| |};
+export type BookmarkListQueryVariables = {|
+  selectedTag?: ?string,
+|};
 export type BookmarkListQueryResponse = {|
   +bookmarks: ?$ReadOnlyArray<?{|
     +id: ?string,
@@ -29,8 +31,10 @@ export type BookmarkListQueryResponse = {|
 
 
 /*
-query BookmarkListQuery {
-  bookmarks {
+query BookmarkListQuery(
+  $selectedTag: ID
+) {
+  bookmarks(tag: $selectedTag) {
     id
     title
     url
@@ -47,24 +51,39 @@ query BookmarkListQuery {
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
+var v0 = [
+  {
+    "kind": "LocalArgument",
+    "name": "selectedTag",
+    "type": "ID",
+    "defaultValue": null
+  }
+],
+v1 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v1 = [
+v2 = [
   {
     "kind": "LinkedField",
     "alias": null,
     "name": "bookmarks",
     "storageKey": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "tag",
+        "variableName": "selectedTag",
+        "type": "ID"
+      }
+    ],
     "concreteType": "Bookmark",
     "plural": true,
     "selections": [
-      v0,
+      v1,
       {
         "kind": "ScalarField",
         "alias": null,
@@ -88,7 +107,7 @@ v1 = [
         "concreteType": "User",
         "plural": false,
         "selections": [
-          v0,
+          v1,
           {
             "kind": "ScalarField",
             "alias": null,
@@ -107,7 +126,7 @@ v1 = [
         "concreteType": "Tag",
         "plural": true,
         "selections": [
-          v0,
+          v1,
           {
             "kind": "ScalarField",
             "alias": null,
@@ -125,23 +144,23 @@ return {
   "operationKind": "query",
   "name": "BookmarkListQuery",
   "id": null,
-  "text": "query BookmarkListQuery {\n  bookmarks {\n    id\n    title\n    url\n    owner {\n      id\n      first_name\n    }\n    tags {\n      id\n      name\n    }\n  }\n}\n",
+  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n) {\n  bookmarks(tag: $selectedTag) {\n    id\n    title\n    url\n    owner {\n      id\n      first_name\n    }\n    tags {\n      id\n      name\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
     "name": "BookmarkListQuery",
     "type": "Root",
     "metadata": null,
-    "argumentDefinitions": [],
-    "selections": v1
+    "argumentDefinitions": v0,
+    "selections": v2
   },
   "operation": {
     "kind": "Operation",
     "name": "BookmarkListQuery",
-    "argumentDefinitions": [],
-    "selections": v1
+    "argumentDefinitions": v0,
+    "selections": v2
   }
 };
 })();
-(node/*: any*/).hash = '0291c1f14c5641378c2f11f66da4c2ac';
+(node/*: any*/).hash = 'fc05b0719ab13e894f3f6d2186363efa';
 module.exports = node;

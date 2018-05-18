@@ -1,12 +1,11 @@
 .BookmarkList__Wrapper {
-  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .BookmarkList__List {
   display: flex;
   flex-wrap: wrap;
-  width: 1000px;
-  margin: 0 auto;
 }
 
 .BookmarkList__Item {

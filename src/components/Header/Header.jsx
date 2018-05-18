@@ -5,8 +5,8 @@ import './Header.css';
 
 const Header = ({ history, loggedIn, onSignOut }) => {
   const signOutFragment = () => (
-    <div className="Header__AuthLink" onClick={() => onSignOut(history)}>
-      <span >
+    <div className="Header__AuthLink">
+      <span onClick={() => onSignOut(history)}>
         Sign Out
       </span>
     </div>
