@@ -33,9 +33,9 @@ const TagList = ({ handleSelectTag, selectedTag }) => {
               </span>
             </div>
             <div className="TagList__List">
-              {props && props.tags.map(tag => {
+              {props ? props.tags.map(tag => {
                 const tagClasses = ['TagList__Item', 'FloatingCard']
-                if (selectedTag == tag.id) tagClasses.push('TagList__Item_Active')
+                if (selectedTag === tag.id) tagClasses.push('TagList__Item_Active')
 
                 return (
                   <li
@@ -46,7 +46,7 @@ const TagList = ({ handleSelectTag, selectedTag }) => {
                     {tag.name}
                   </li>
                 );
-              }) || <LoadingState />}
+              }) : <LoadingState />}
             </div>
           </div>
         );

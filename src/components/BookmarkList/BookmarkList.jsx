@@ -37,11 +37,11 @@ const BookmarkList = ({ selectedTag }) => {
         return (
           <div className="BookmarkList__Wrapper">
             <ul className="BookmarkList__List">
-              {props && props.bookmarks.map(bookmark => (
+              {props ? props.bookmarks.map(bookmark => (
                 <li key={bookmark.id} className="BookmarkList__Item">
                   <BookmarkCard bookmark={bookmark} />
                 </li>
-              )) || <LoadingState />}
+              )) : <LoadingState />}
             </ul>
           </div>
         );
