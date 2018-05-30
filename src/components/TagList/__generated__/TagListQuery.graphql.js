@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash c9944f9f51b4cbb40ce6fc1d77f1537b
+ * @relayHash 014f3241d7a015c547e9474b3b36111d
  */
 
 /* eslint-disable */
@@ -12,8 +12,8 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type TagListQueryVariables = {| |};
 export type TagListQueryResponse = {|
   +tags: ?$ReadOnlyArray<?{|
-    +id: ?string,
-    +name: ?string,
+    +id: string,
+    +name: string,
   |}>,
 |};
 */
@@ -66,7 +66,7 @@ return {
   "fragment": {
     "kind": "Fragment",
     "name": "TagListQuery",
-    "type": "Root",
+    "type": "Query",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": v0

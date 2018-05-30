@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e4aeaf341608ed23be5d8d436d4c80fd
+ * @relayHash b50897949a2fd7b2763c7e49f60b8733
  */
 
 /* eslint-disable */
@@ -14,16 +14,16 @@ export type BookmarkListQueryVariables = {|
 |};
 export type BookmarkListQueryResponse = {|
   +bookmarks: ?$ReadOnlyArray<?{|
-    +id: ?string,
-    +title: ?string,
-    +url: ?string,
+    +id: string,
+    +title: string,
+    +url: string,
     +owner: ?{|
-      +id: ?string,
-      +first_name: ?string,
+      +id: string,
+      +first_name: string,
     |},
     +tags: ?$ReadOnlyArray<?{|
-      +id: ?string,
-      +name: ?string,
+      +id: string,
+      +name: string,
     |}>,
   |}>,
 |};
@@ -149,7 +149,7 @@ return {
   "fragment": {
     "kind": "Fragment",
     "name": "BookmarkListQuery",
-    "type": "Root",
+    "type": "Query",
     "metadata": null,
     "argumentDefinitions": v0,
     "selections": v2
