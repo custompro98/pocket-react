@@ -28,7 +28,8 @@ const TagList = ({ handleSelectTag, selectedTag }) => {
               <h3>Tags</h3>
               <span
                 className="TagList__Clear"
-                onClick={() => handleSelectTag({ id: undefined })}>
+                onClick={() => handleSelectTag({ id: undefined })}
+              >
                 Clear
               </span>
             </div>

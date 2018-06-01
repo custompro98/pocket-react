@@ -11,3 +11,9 @@
 .BookmarkList__Item {
   list-style-type: none;
 }
+
+.BookmarkList__AddBookmark {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}

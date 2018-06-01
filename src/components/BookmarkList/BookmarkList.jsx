@@ -1,10 +1,12 @@
 import React from 'react';
 import { graphql, QueryRenderer } from 'react-relay';
+import { Link } from 'react-router-dom';
 
 import environment from '../../Environment';
 
 import LoadingState from '../LoadingState/LoadingState';
 import BookmarkCard from './BookmarkCard/BookmarkCard';
+import FloatingActionButton from '../FloatingActionButton/FloatingActionButton';
 
 import './BookmarkList.css';
 
@@ -43,6 +45,13 @@ const BookmarkList = ({ selectedTag }) => {
                 </li>
               )) : <LoadingState />}
             </ul>
+            <div className="BookmarkList__AddBookmark">
+              <Link to="/bookmarks/new">
+                <FloatingActionButton>
+                  <span>+</span>
+                </FloatingActionButton>
+              </Link>
+            </div>
           </div>
         );
       }}

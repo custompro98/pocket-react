@@ -14,6 +14,8 @@ import SignUp from './components/Authentication/SignUp/SignUp';
 import Header from './components/Header/Header';
 import Homepage from './components/Homepage/Homepage';
 
+import Create from './components/Create/Create';
+
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
@@ -56,6 +58,10 @@ class App extends Component {
               <Route
                 path="/sign_out"
                 render={() => <SignUp />}
+              />
+              <Route
+                path="/bookmarks/new"
+                render={() => <Create target="bookmark" />}
               />
               <Route
                 path="/"
