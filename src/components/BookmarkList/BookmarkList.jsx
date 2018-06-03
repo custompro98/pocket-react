@@ -15,11 +15,13 @@ const BookmarkList = ({ selectedTag }) => {
     <QueryRenderer
       environment={environment}
       variables={{
-        selectedTag: selectedTag
+        selectedTag: selectedTag,
+        page: 113,
+        limit: 9
       }}
       query={graphql`
-        query BookmarkListQuery($selectedTag: ID) {
-          bookmarks(tag: $selectedTag) {
+        query BookmarkListQuery($selectedTag: ID, $page: Int, $limit: Int) {
+          bookmarks(tag: $selectedTag, page: $page, limit: $limit) {
             id,
             title,
             url,

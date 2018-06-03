@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b50897949a2fd7b2763c7e49f60b8733
+ * @relayHash 8c53ccc72b3f052cc2623534f9aa546b
  */
 
 /* eslint-disable */
@@ -11,6 +11,8 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type BookmarkListQueryVariables = {|
   selectedTag?: ?string,
+  page?: ?number,
+  limit?: ?number,
 |};
 export type BookmarkListQueryResponse = {|
   +bookmarks: ?$ReadOnlyArray<?{|
@@ -33,8 +35,10 @@ export type BookmarkListQueryResponse = {|
 /*
 query BookmarkListQuery(
   $selectedTag: ID
+  $page: Int
+  $limit: Int
 ) {
-  bookmarks(tag: $selectedTag) {
+  bookmarks(tag: $selectedTag, page: $page, limit: $limit) {
     id
     title
     url
@@ -57,6 +61,18 @@ var v0 = [
     "name": "selectedTag",
     "type": "ID",
     "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "page",
+    "type": "Int",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "limit",
+    "type": "Int",
+    "defaultValue": null
   }
 ],
 v1 = {
@@ -73,6 +89,18 @@ v2 = [
     "name": "bookmarks",
     "storageKey": null,
     "args": [
+      {
+        "kind": "Variable",
+        "name": "limit",
+        "variableName": "limit",
+        "type": "Int"
+      },
+      {
+        "kind": "Variable",
+        "name": "page",
+        "variableName": "page",
+        "type": "Int"
+      },
       {
         "kind": "Variable",
         "name": "tag",
@@ -144,7 +172,7 @@ return {
   "operationKind": "query",
   "name": "BookmarkListQuery",
   "id": null,
-  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n) {\n  bookmarks(tag: $selectedTag) {\n    id\n    title\n    url\n    owner {\n      id\n      first_name\n    }\n    tags {\n      id\n      name\n    }\n  }\n}\n",
+  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n  $page: Int\n  $limit: Int\n) {\n  bookmarks(tag: $selectedTag, page: $page, limit: $limit) {\n    id\n    title\n    url\n    owner {\n      id\n      first_name\n    }\n    tags {\n      id\n      name\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -162,5 +190,5 @@ return {
   }
 };
 })();
-(node/*: any*/).hash = 'fc05b0719ab13e894f3f6d2186363efa';
+(node/*: any*/).hash = '1d40b1c5ff1c24c3b0ee35e1818f8697';
 module.exports = node;
