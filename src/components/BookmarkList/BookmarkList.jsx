@@ -16,8 +16,8 @@ class BookmarkList extends Component {
     super(props);
 
     this.state = {
-      pageInput: 1,
-      currentPage: 1
+      pageInput: undefined,
+      currentPage: undefined
     };
   }
 
@@ -30,6 +30,18 @@ class BookmarkList extends Component {
     this.setState({ currentPage: this.state.pageInput });
   };
 
+  renderBookmarks = (bookmarks) => (
+    bookmarks.map(bookmarkNode => {
+      const bookmark = bookmarkNode.node;
+
+      return (
+        <li key={bookmark.id} className="BookmarkList__Item">
+          <BookmarkCard bookmark={bookmark} />
+        </li>
+      );
+    })
+  );
+
   render() {
     const { selectedTag } = this.props;
 
@@ -38,22 +50,32 @@ class BookmarkList extends Component {
         environment={environment}
         variables={{
           selectedTag: selectedTag,
-          page: this.state.currentPage,
-          limit: 9
+          after: this.state.currentPage,
+          first: 9
         }}
         query={graphql`
-          query BookmarkListQuery($selectedTag: ID, $page: Int, $limit: Int) {
-            bookmarks(tag: $selectedTag, page: $page, limit: $limit) {
-              id,
-              title,
-              url,
-              owner {
-                id,
-                first_name
-              }
-              tags {
-                id,
-                name
+          query BookmarkListQuery($selectedTag: ID, $after: String, $first: Int) {
+            me {
+              bookmarks(tag: $selectedTag, after: $after, first: $first) {
+                edges {
+                  node {
+                    id,
+                    title,
+                    url,
+                    owner {
+                      id,
+                      first_name
+                    }
+                    tags {
+                      edges {
+                        node {
+                          id,
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -63,11 +85,10 @@ class BookmarkList extends Component {
           return (
             <div className="BookmarkList__Wrapper">
               <ul className="BookmarkList__List">
-                {props ? props.bookmarks.map(bookmark => (
-                  <li key={bookmark.id} className="BookmarkList__Item">
-                    <BookmarkCard bookmark={bookmark} />
-                  </li>
-                )) : <LoadingState />}
+                {props ?
+                  <React.Fragment>
+                    {this.renderBookmarks(props.me.bookmarks.edges)}
+                  </React.Fragment> : <LoadingState />}
               </ul>
               <div className="BookmarkList__AddBookmark">
                 <Link to="/bookmarks/new">

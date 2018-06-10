@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8c53ccc72b3f052cc2623534f9aa546b
+ * @relayHash 385e95bedf598fe45f625157ff7a223f
  */
 
 /* eslint-disable */
@@ -11,23 +11,33 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type BookmarkListQueryVariables = {|
   selectedTag?: ?string,
-  page?: ?number,
-  limit?: ?number,
+  after?: ?string,
+  first?: ?number,
 |};
 export type BookmarkListQueryResponse = {|
-  +bookmarks: ?$ReadOnlyArray<?{|
-    +id: string,
-    +title: string,
-    +url: string,
-    +owner: ?{|
-      +id: string,
-      +first_name: string,
+  +me: ?{|
+    +bookmarks: ?{|
+      +edges: ?$ReadOnlyArray<?{|
+        +node: ?{|
+          +id: string,
+          +title: string,
+          +url: string,
+          +owner: ?{|
+            +id: string,
+            +first_name: string,
+          |},
+          +tags: ?{|
+            +edges: ?$ReadOnlyArray<?{|
+              +node: ?{|
+                +id: string,
+                +name: string,
+              |},
+            |}>,
+          |},
+        |},
+      |}>,
     |},
-    +tags: ?$ReadOnlyArray<?{|
-      +id: string,
-      +name: string,
-    |}>,
-  |}>,
+  |},
 |};
 */
 
@@ -35,20 +45,30 @@ export type BookmarkListQueryResponse = {|
 /*
 query BookmarkListQuery(
   $selectedTag: ID
-  $page: Int
-  $limit: Int
+  $after: String
+  $first: Int
 ) {
-  bookmarks(tag: $selectedTag, page: $page, limit: $limit) {
-    id
-    title
-    url
-    owner {
-      id
-      first_name
-    }
-    tags {
-      id
-      name
+  me {
+    bookmarks(tag: $selectedTag, after: $after, first: $first) {
+      edges {
+        node {
+          id
+          title
+          url
+          owner {
+            id
+            first_name
+          }
+          tags {
+            edges {
+              node {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -64,13 +84,13 @@ var v0 = [
   },
   {
     "kind": "LocalArgument",
-    "name": "page",
-    "type": "Int",
+    "name": "after",
+    "type": "String",
     "defaultValue": null
   },
   {
     "kind": "LocalArgument",
-    "name": "limit",
+    "name": "first",
     "type": "Int",
     "defaultValue": null
   }
@@ -86,81 +106,136 @@ v2 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "bookmarks",
+    "name": "me",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "limit",
-        "variableName": "limit",
-        "type": "Int"
-      },
-      {
-        "kind": "Variable",
-        "name": "page",
-        "variableName": "page",
-        "type": "Int"
-      },
-      {
-        "kind": "Variable",
-        "name": "tag",
-        "variableName": "selectedTag",
-        "type": "ID"
-      }
-    ],
-    "concreteType": "Bookmark",
-    "plural": true,
+    "args": null,
+    "concreteType": "User",
+    "plural": false,
     "selections": [
-      v1,
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "title",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "url",
-        "args": null,
-        "storageKey": null
-      },
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "owner",
+        "name": "bookmarks",
         "storageKey": null,
-        "args": null,
-        "concreteType": "User",
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "after",
+            "variableName": "after",
+            "type": "String"
+          },
+          {
+            "kind": "Variable",
+            "name": "first",
+            "variableName": "first",
+            "type": "Int"
+          },
+          {
+            "kind": "Variable",
+            "name": "tag",
+            "variableName": "selectedTag",
+            "type": "ID"
+          }
+        ],
+        "concreteType": "BookmarksConnection",
         "plural": false,
         "selections": [
-          v1,
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "first_name",
+            "name": "edges",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
-          }
-        ]
-      },
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "tags",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Tag",
-        "plural": true,
-        "selections": [
-          v1,
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "name",
-            "args": null,
-            "storageKey": null
+            "concreteType": "BookmarkEdge",
+            "plural": true,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "node",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Bookmark",
+                "plural": false,
+                "selections": [
+                  v1,
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "title",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "url",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "owner",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "plural": false,
+                    "selections": [
+                      v1,
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "first_name",
+                        "args": null,
+                        "storageKey": null
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "tags",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "TagsConnection",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "edges",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "TagEdge",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "node",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "Tag",
+                            "plural": false,
+                            "selections": [
+                              v1,
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "name",
+                                "args": null,
+                                "storageKey": null
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
@@ -172,7 +247,7 @@ return {
   "operationKind": "query",
   "name": "BookmarkListQuery",
   "id": null,
-  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n  $page: Int\n  $limit: Int\n) {\n  bookmarks(tag: $selectedTag, page: $page, limit: $limit) {\n    id\n    title\n    url\n    owner {\n      id\n      first_name\n    }\n    tags {\n      id\n      name\n    }\n  }\n}\n",
+  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n  $after: String\n  $first: Int\n) {\n  me {\n    bookmarks(tag: $selectedTag, after: $after, first: $first) {\n      edges {\n        node {\n          id\n          title\n          url\n          owner {\n            id\n            first_name\n          }\n          tags {\n            edges {\n              node {\n                id\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -190,5 +265,5 @@ return {
   }
 };
 })();
-(node/*: any*/).hash = '1d40b1c5ff1c24c3b0ee35e1818f8697';
+(node/*: any*/).hash = '5f2d008a021258df3b80aefdba72ecef';
 module.exports = node;

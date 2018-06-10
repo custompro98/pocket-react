@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 014f3241d7a015c547e9474b3b36111d
+ * @relayHash fa8cee29bec0add924086246051ae5cd
  */
 
 /* eslint-disable */
@@ -11,19 +11,31 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type TagListQueryVariables = {| |};
 export type TagListQueryResponse = {|
-  +tags: ?$ReadOnlyArray<?{|
-    +id: string,
-    +name: string,
-  |}>,
+  +me: ?{|
+    +tags: ?{|
+      +edges: ?$ReadOnlyArray<?{|
+        +node: ?{|
+          +id: string,
+          +name: string,
+        |},
+      |}>,
+    |},
+  |},
 |};
 */
 
 
 /*
 query TagListQuery {
-  tags {
-    id
-    name
+  me {
+    tags {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
   }
 }
 */
@@ -33,25 +45,58 @@ var v0 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "tags",
+    "name": "me",
     "storageKey": null,
     "args": null,
-    "concreteType": "Tag",
-    "plural": true,
+    "concreteType": "User",
+    "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
+        "kind": "LinkedField",
         "alias": null,
-        "name": "id",
+        "name": "tags",
+        "storageKey": null,
         "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "name",
-        "args": null,
-        "storageKey": null
+        "concreteType": "TagsConnection",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "edges",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "TagEdge",
+            "plural": true,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "node",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Tag",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "id",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "name",
+                    "args": null,
+                    "storageKey": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }
@@ -61,7 +106,7 @@ return {
   "operationKind": "query",
   "name": "TagListQuery",
   "id": null,
-  "text": "query TagListQuery {\n  tags {\n    id\n    name\n  }\n}\n",
+  "text": "query TagListQuery {\n  me {\n    tags {\n      edges {\n        node {\n          id\n          name\n        }\n      }\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -79,5 +124,5 @@ return {
   }
 };
 })();
-(node/*: any*/).hash = 'fa3a4dc00b49f494d32812447db18fab';
+(node/*: any*/).hash = 'd6943dec14927e1a84007986ccdece03';
 module.exports = node;

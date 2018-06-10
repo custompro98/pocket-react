@@ -24,7 +24,7 @@ const BookmarkCard = ({bookmark}) => {
           </div>
           <div className="BookmarkCard__TagsList">
             <span className="BookmarkCard__TagsLabel">Tags:</span>
-            <em>{ bookmark.tags.map(tag => tag.name).join(', ') }</em>
+            <em>{ bookmark.tags.edges.map(tag => tag.node.name).join(', ') }</em>
           </div>
         </div>
       </div>

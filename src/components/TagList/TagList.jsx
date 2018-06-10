@@ -14,9 +14,15 @@ const TagList = ({ handleSelectTag, selectedTag }) => {
       variables={{}}
       query={graphql`
         query TagListQuery {
-          tags {
-            id,
-            name
+          me {
+            tags {
+              edges {
+                node {
+                  id,
+                  name
+                }
+              }
+            }
           }
         }
       `}
@@ -34,7 +40,8 @@ const TagList = ({ handleSelectTag, selectedTag }) => {
               </span>
             </div>
             <div className="TagList__List">
-              {props ? props.tags.map(tag => {
+              {props ? props.me.tags.edges.map(tagNode => {
+                const tag = tagNode.node;
                 const tagClasses = ['TagList__Item', 'FloatingCard']
                 if (selectedTag === tag.id) tagClasses.push('TagList__Item_Active')
 
