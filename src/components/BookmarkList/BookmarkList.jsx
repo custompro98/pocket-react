@@ -7,7 +7,6 @@ import environment from '../../Environment';
 import LoadingState from '../LoadingState/LoadingState';
 import BookmarkCard from './BookmarkCard/BookmarkCard';
 import FloatingActionButton from '../FloatingActionButton/FloatingActionButton';
-import TextInput from '../FormElements/TextInput/TextInput';
 
 import './BookmarkList.css';
 
@@ -16,18 +15,20 @@ class BookmarkList extends Component {
     super(props);
 
     this.state = {
-      pageInput: undefined,
-      currentPage: undefined
+      forwardCount: 0,
+      endCursor: undefined,
+      startCursor: undefined
     };
   }
 
-  handlePageChange = e => {
-    const pageInput = parseInt(e.target.value, 10);
-    if (pageInput > 0) this.setState({ pageInput });
+  handlePageBack = (startCursor) => {
+    const forwardCount = this.state.forwardCount === 0 ? 0 : this.state.forwardCount - 1;
+    this.setState({ forwardCount, endCursor: undefined, startCursor });
   };
 
-  handlePageLoad = () => {
-    this.setState({ currentPage: this.state.pageInput });
+  handlePageForward = (endCursor) => {
+    const forwardCount = this.state.forwardCount + 1;
+    this.setState({ forwardCount, endCursor, startCursor: undefined });
   };
 
   renderBookmarks = (bookmarks) => (
@@ -50,13 +51,19 @@ class BookmarkList extends Component {
         environment={environment}
         variables={{
           selectedTag: selectedTag,
-          after: this.state.currentPage,
-          first: 9
+          first: 9,
+          after: this.state.endCursor,
+          before: this.state.startCursor
         }}
         query={graphql`
-          query BookmarkListQuery($selectedTag: ID, $after: String, $first: Int) {
+          query BookmarkListQuery($selectedTag: ID, $first: Int, $after: String, $before: String) {
             me {
-              bookmarks(tag: $selectedTag, after: $after, first: $first) {
+              bookmarks(tag: $selectedTag, first: $first, after: $after, before: $before) {
+                pageInfo {
+                  startCursor,
+                  endCursor,
+                  hasNextPage
+                }
                 edges {
                   node {
                     id,
@@ -88,6 +95,20 @@ class BookmarkList extends Component {
                 {props ?
                   <React.Fragment>
                     {this.renderBookmarks(props.me.bookmarks.edges)}
+                    <button
+                      className="BookmarkList__Pagination"
+                      onClick={() => this.handlePageBack(props.me.bookmarks.pageInfo.startCursor)}
+                      disabled={this.state.forwardCount === 0}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      className="BookmarkList__Pagination"
+                      onClick={() => this.handlePageForward(props.me.bookmarks.pageInfo.endCursor)}
+                      disabled={!props.me.bookmarks.pageInfo.hasNextPage}
+                    >
+                      Next
+                    </button>
                   </React.Fragment> : <LoadingState />}
               </ul>
               <div className="BookmarkList__AddBookmark">
@@ -96,16 +117,6 @@ class BookmarkList extends Component {
                     <span>+</span>
                   </FloatingActionButton>
                 </Link>
-              </div>
-              <div>
-                <TextInput
-                  name="page"
-                  type="text"
-                  label="Go to page:"
-                  onChange={this.handlePageChange}
-                  style={{ width: '30px' }}
-                />
-                <input type="submit" onClick={this.handlePageLoad} />
               </div>
             </div>
           );

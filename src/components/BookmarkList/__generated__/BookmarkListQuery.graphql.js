@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 385e95bedf598fe45f625157ff7a223f
+ * @relayHash 1ac5090b4460a7dc904cdaa02eec38ff
  */
 
 /* eslint-disable */
@@ -11,12 +11,18 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type BookmarkListQueryVariables = {|
   selectedTag?: ?string,
-  after?: ?string,
   first?: ?number,
+  after?: ?string,
+  before?: ?string,
 |};
 export type BookmarkListQueryResponse = {|
   +me: ?{|
     +bookmarks: ?{|
+      +pageInfo: {|
+        +startCursor: ?string,
+        +endCursor: ?string,
+        +hasNextPage: boolean,
+      |},
       +edges: ?$ReadOnlyArray<?{|
         +node: ?{|
           +id: string,
@@ -45,11 +51,17 @@ export type BookmarkListQueryResponse = {|
 /*
 query BookmarkListQuery(
   $selectedTag: ID
-  $after: String
   $first: Int
+  $after: String
+  $before: String
 ) {
   me {
-    bookmarks(tag: $selectedTag, after: $after, first: $first) {
+    bookmarks(tag: $selectedTag, first: $first, after: $after, before: $before) {
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+      }
       edges {
         node {
           id
@@ -84,14 +96,20 @@ var v0 = [
   },
   {
     "kind": "LocalArgument",
+    "name": "first",
+    "type": "Int",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
     "name": "after",
     "type": "String",
     "defaultValue": null
   },
   {
     "kind": "LocalArgument",
-    "name": "first",
-    "type": "Int",
+    "name": "before",
+    "type": "String",
     "defaultValue": null
   }
 ],
@@ -126,6 +144,12 @@ v2 = [
           },
           {
             "kind": "Variable",
+            "name": "before",
+            "variableName": "before",
+            "type": "String"
+          },
+          {
+            "kind": "Variable",
             "name": "first",
             "variableName": "first",
             "type": "Int"
@@ -140,6 +164,38 @@ v2 = [
         "concreteType": "BookmarksConnection",
         "plural": false,
         "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "pageInfo",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "startCursor",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "endCursor",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "hasNextPage",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          },
           {
             "kind": "LinkedField",
             "alias": null,
@@ -247,7 +303,7 @@ return {
   "operationKind": "query",
   "name": "BookmarkListQuery",
   "id": null,
-  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n  $after: String\n  $first: Int\n) {\n  me {\n    bookmarks(tag: $selectedTag, after: $after, first: $first) {\n      edges {\n        node {\n          id\n          title\n          url\n          owner {\n            id\n            first_name\n          }\n          tags {\n            edges {\n              node {\n                id\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  "text": "query BookmarkListQuery(\n  $selectedTag: ID\n  $first: Int\n  $after: String\n  $before: String\n) {\n  me {\n    bookmarks(tag: $selectedTag, first: $first, after: $after, before: $before) {\n      pageInfo {\n        startCursor\n        endCursor\n        hasNextPage\n      }\n      edges {\n        node {\n          id\n          title\n          url\n          owner {\n            id\n            first_name\n          }\n          tags {\n            edges {\n              node {\n                id\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -265,5 +321,5 @@ return {
   }
 };
 })();
-(node/*: any*/).hash = '5f2d008a021258df3b80aefdba72ecef';
+(node/*: any*/).hash = '102642d3645f31534f1fd9a95fcc4f29';
 module.exports = node;
